@@ -21,7 +21,7 @@ const inviteUrl = 'https://discord.gg/WcknYK29Hq';
 
 function App(){
   const [theme,setTheme]=useState(localStorage.getItem('sb3-steam-theme')||'red');
-  const [screen,setScreen]=useState('login');
+  const [screen,setScreen]=useState('welcome');
   const [page,setPage]=useState('home');
   const [settingsOpen,setSettingsOpen]=useState(false);
   const [query,setQuery]=useState('');
@@ -38,12 +38,34 @@ function App(){
   const enterPreview=()=>{setUser({name:'Preview User',tag:'Discord connection pending'});setScreen('app')};
   return <div className="app" style={{'--accent':selected.accent,'--accent2':selected.accent2,'--bg':selected.bg,'--panel':selected.panel}}>
     <div className="ambient ambient-a"/><div className="ambient ambient-b"/><div className="ambient ambient-c"/><div className="grid-layer"/>
+    {screen==='welcome'&&<section className="gate-screen startup-screen">
+      <header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header>
+      <div className="startup-card">
+        <div className="gate-logo">SB3</div>
+        <div className="eyebrow">STARTUP CHECK</div>
+        <h1>Welcome to SB3 Steam Tool</h1>
+        <p>We will check the required account connections and app services before opening your workspace.</p>
+        <div className="check-list">
+          <div className="startup-check"><span className="check-symbol">↻</span><div><b>Application update</b><small>Update service is not connected yet.</small></div><em>Not configured</em><button onClick={()=>showToast('The update service will be connected in a later build.')}>Details</button></div>
+          <div className="startup-check"><span className="check-symbol">◎</span><div><b>Discord account</b><small>Secure Discord OAuth sign-in.</small></div><em>Not connected</em><button onClick={()=>setScreen('login')}>Connect</button></div>
+          <div className="startup-check"><span className="check-symbol">◉</span><div><b>Steam account</b><small>Steam OpenID sign-in; no Steam password is requested.</small></div><em>Not connected</em><button onClick={()=>setScreen('steam')}>Connect</button></div>
+          <div className="startup-check"><span className="check-symbol">⌂</span><div><b>SB3 server membership</b><small>Verified after Discord sign-in.</small></div><em>Not verified</em><button onClick={()=>setScreen('membership')}>Details</button></div>
+        </div>
+        <div className="startup-note"><i/> Preview build: these checks are UI placeholders and do not run real verification yet.</div>
+      </div>
+      <footer className="gate-footer"><span>SB3 Steam Tool</span><span>Startup · v0.0.1</span></footer>
+    </section>}
     {screen==='login'&&<section className="gate-screen">
       <header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header>
       <div className="gate-card"><div className="gate-logo">SB3</div><div className="eyebrow">WELCOME TO SB3 STEAM TOOL</div><h1>Sign in to continue</h1><p>Sign in with your Discord account to access your workspace and game library.</p><button className="primary-btn wide" onClick={beginLogin}>◎ &nbsp; Sign in with Discord</button><div className="gate-foot">Your account connection is not configured yet.</div></div>
       <footer className="gate-footer"><span>SB3 Steam Tool</span><span>Secure sign-in · Discord</span></footer>
     </section>}
-    {screen==='membership'&&<section className="gate-screen"><header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header><div className="gate-card"><div className="gate-logo">⌂</div><div className="eyebrow">COMMUNITY ACCESS</div><h1>Join the SB3 server</h1><p>Join the official Discord server, then return to the app to verify membership.</p><button className="primary-btn wide" onClick={()=>window.open(inviteUrl,'_blank','noopener,noreferrer')}>Join the Discord server ↗</button><button className="secondary-btn wide" onClick={()=>showToast('Membership verification will be available after Discord OAuth is connected.')}>Refresh membership</button></div><footer className="gate-footer"><span>SB3 Steam Tool</span><button className="text-btn" onClick={()=>setScreen('login')}>Back to sign in</button></footer></section>}
+    {screen==='steam'&&<section className="gate-screen">
+      <header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header>
+      <div className="gate-card"><div className="gate-logo">◉</div><div className="eyebrow">STEAM ACCOUNT</div><h1>Connect your Steam account</h1><p>Steam sign-in will use the official Steam OpenID flow. The app will never ask you to type your Steam password into SB3.</p><button className="primary-btn wide" onClick={()=>showToast('Steam OpenID is not connected until the backend is configured.')}>Continue with Steam</button><div className="gate-foot">Steam account verification is not configured in this preview.</div></div>
+      <footer className="gate-footer"><span>SB3 Steam Tool</span><button className="text-btn" onClick={()=>setScreen('welcome')}>Back to Welcome</button></footer>
+    </section>}
+    {screen==='membership'&&<section className="gate-screen"><header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header><div className="gate-card"><div className="gate-logo">⌂</div><div className="eyebrow">COMMUNITY ACCESS</div><h1>Join the SB3 server</h1><p>Join the official Discord server, then return to the app to verify membership.</p><button className="primary-btn wide" onClick={()=>window.open(inviteUrl,'_blank','noopener,noreferrer')}>Join the Discord server ↗</button><button className="secondary-btn wide" onClick={()=>showToast('Membership verification will be available after Discord OAuth is connected.')}>Refresh membership</button></div><footer className="gate-footer"><span>SB3 Steam Tool</span><button className="text-btn" onClick={()=>setScreen('welcome')}>Back to Welcome</button></footer></section>}
     {screen==='app'&&<>
       <header className="topbar"><div className="brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small><small>v0.0.1</small></div></div><div className="search"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search games…"/></div><button className="icon-btn" onClick={()=>setSettingsOpen(true)}>⚙</button><button className="profile-chip" onClick={()=>showToast('Discord profile will appear after authentication.')}> <span className="profile-avatar">P</span><span>{user?.name||'Account'}</span></button></header>
       <div className="layout"><aside className="sidebar"><div className="side-label">WORKSPACE</div>{nav.map(n=><button key={n.id} className={'nav-item '+(page===n.id?'active':'')} onClick={()=>setPage(n.id)}><span>{n.icon}</span>{n.label}</button>)}<div className="side-bottom"><i className="online-dot"/>Interface ready</div></aside>
