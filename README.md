@@ -1,8 +1,8 @@
 # SB3 Steam Tool
 
-**Version:** 0.0.1
+**Current UI version:** 0.0.1
 
-Initial frontend foundation for SB3 Steam Tool.
+A React + Vite frontend foundation for SB3 Steam Tool.
 
 ## Development
 
@@ -18,12 +18,16 @@ npm run build
 npm run preview
 ```
 
-## v0.0.1
+## v0.0.1 UI
 
-- Initial dark crimson visual identity inspired by the SB3 Quest Completer UI.
-- Animated ambient background and grid texture.
-- Sidebar navigation for Overview, Library, Downloads and Changelog.
-- Search field and starter content placeholders.
+- Dark crimson visual identity based on the SB3 Quest Completer reference.
+- Discord sign-in screen and a separate server-membership gate screen (UI only).
+- Welcome dashboard with account, server-membership and update-status cards.
+- All-games, downloads and changelog sections.
 - Settings modal with eight selectable themes and saved theme preference.
-- Version label and initial changelog.
-- Backend, Discord authentication and download worker are intentionally not connected yet.
+
+## Not connected yet
+
+Discord OAuth, real server-membership verification, account profile data, live update checks, game catalogue and download services require the backend integration. Current status cards explicitly show pending/preview state; they do not claim a user is authenticated or a server member.
+
+No third-party Steam unlocking or license-bypass component is bundled.
