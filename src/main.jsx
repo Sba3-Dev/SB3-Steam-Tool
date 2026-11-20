@@ -58,7 +58,7 @@ function App(){
     {screen==='login'&&<section className="gate-screen">
       <header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header>
       <div className="gate-card"><div className="gate-logo">SB3</div><div className="eyebrow">WELCOME TO SB3 STEAM TOOL</div><h1>Sign in to continue</h1><p>Sign in with your Discord account to access your workspace and game library.</p><button className="primary-btn wide" onClick={beginLogin}>◎ &nbsp; Sign in with Discord</button><div className="gate-foot">Your account connection is not configured yet.</div></div>
-      <footer className="gate-footer"><span>SB3 Steam Tool</span><span>Secure sign-in · Discord</span></footer>
+      <footer className="gate-footer"><button className="text-btn" onClick={()=>setScreen('welcome')}>Back to Welcome</button><span>Secure sign-in · Discord</span></footer>
     </section>}
     {screen==='steam'&&<section className="gate-screen">
       <header className="gate-brand"><div className="brand-logo">SB3</div><div><b>SB3 Steam Tool</b><small>Sba3 Dev · 2026</small></div><span className="version">v0.0.1</span></header>
