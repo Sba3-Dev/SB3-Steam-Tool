@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "dist:win": "npm run build && electron-builder --win nsis"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -14,6 +15,37 @@
   },
   "devDependencies": {
     "vite": "^6.1.0",
-    "@vitejs/plugin-react": "^4.3.4"
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^36.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.sb3dev.steamtool",
+    "productName": "SB3 Steam Tool",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
